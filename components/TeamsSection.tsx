@@ -11,7 +11,7 @@ interface Team {
   color: string;
   features: string[];
 }
-
+//يبسيبسيب
 const TeamsSection: React.FC = () => {
   const [activeAdvice, setActiveAdvice] = useState<Record<string, string>>({});
   const [loadingTeam, setLoadingTeam] = useState<string | null>(null);
