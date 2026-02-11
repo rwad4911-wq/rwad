@@ -1,10 +1,18 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// دالة مساعدة لإنشاء كائن الذكاء الاصطناعي عند الحاجة فقط
+const getAI = () => {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    throw new Error("API Key is missing from environment variables.");
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 export const refineText = async (text: string): Promise<string> => {
   try {
+    const ai = getAI();
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `قم بتحسين النص التالي ليكون أكثر احترافية وجاذبية لملف إنجاز طالب عمره 14 سنة يحب كرة القدم. اجعل اللغة قوية وملهمة: "${text}"`,
@@ -18,6 +26,7 @@ export const refineText = async (text: string): Promise<string> => {
 
 export const getCharityThankYou = async (donorName: string, item: string): Promise<string> => {
   try {
+    const ai = getAI();
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `اكتب رسالة شكر قصيرة وملهمة جداً للمتبرع "${donorName}" الذي ساهم بـ "${item}" لأطفال محتاجين. اربط بين حب الرياضة وعمل الخير. اجعلها لمسة إنسانية بلهجة عربية فصحى جميلة.`,
@@ -31,6 +40,7 @@ export const getCharityThankYou = async (donorName: string, item: string): Promi
 
 export const getTeamTrainingFocus = async (teamName: string): Promise<string> => {
   try {
+    const ai = getAI();
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `بصفتك مدرب كرة قدم خبير، اقترح تركيزاً تدريبياً واحداً (جملة واحدة ملهمة) لفريق "${teamName}" اليوم. 
