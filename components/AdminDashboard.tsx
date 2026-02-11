@@ -82,12 +82,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
                   className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs"
                 >+ إضافة</button>
              </div>
-             <div className="max-h-[400px] overflow-y-auto space-y-2">
+             <div className="max-h-[400px] overflow-y-auto space-y-2 no-scrollbar">
                {props.achievements.map((ach) => (
                  <div key={ach.id} className="bg-slate-50 p-3 rounded-xl border flex justify-between items-center">
                    <div className="flex-1">
                      <input 
-                        className="bg-transparent font-bold w-full" 
+                        className="bg-transparent font-bold w-full outline-none" 
                         value={ach.title} 
                         onChange={e => props.setAchievements(props.achievements.map(a => a.id === ach.id ? {...a, title: e.target.value} : a))}
                      />
@@ -107,9 +107,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
             <div className="grid gap-3">
               {props.kits.map((kit) => (
                 <div key={kit.id} className="bg-slate-50 p-4 rounded-xl border grid grid-cols-3 gap-2 items-center">
-                  <input className="font-bold bg-transparent" value={kit.name} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, name: e.target.value} : k))} />
+                  <input className="font-bold bg-transparent outline-none" value={kit.name} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, name: e.target.value} : k))} />
                   <input type="number" className="bg-white border rounded p-1 text-center" value={kit.price} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, price: parseInt(e.target.value)} : k))} />
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 justify-end">
                     <input type="color" value={kit.primaryColor} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, primaryColor: e.target.value} : k))} className="w-8 h-8 rounded cursor-pointer" />
                     <button onClick={() => handleDelete(props.kits, props.setKits, 'id', kit.id)} className="text-red-500"><i className="fas fa-trash"></i></button>
                   </div>
@@ -169,18 +169,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
             </button>
           ))}
 
-          <div className="mt-auto pt-8">
+          <div className="mt-auto flex flex-col gap-3">
             <button 
               onClick={props.onClose}
               className="w-full bg-red-500/10 text-red-400 p-3 rounded-xl font-bold text-sm hover:bg-red-500 hover:text-white transition-all"
             >
-              إغلاق وحفظ
+              إغلاق
             </button>
           </div>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 p-10 bg-white overflow-y-auto">
+        <div className="flex-1 p-10 bg-white overflow-y-auto no-scrollbar">
           {renderTabContent()}
         </div>
       </div>

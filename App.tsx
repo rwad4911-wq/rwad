@@ -15,7 +15,7 @@ import AdminDashboard from './components/AdminDashboard';
 import { StudentProfile, Achievement, TeacherFeedback } from './types';
 
 const App: React.FC = () => {
-  // Centralized State
+  // Centralized States
   const [profile, setProfile] = useState<StudentProfile>({
     name: 'رواد عرب',
     age: 14,
@@ -76,67 +76,33 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen pb-20 overflow-x-hidden bg-emerald-50/50">
       <Navbar onNavigate={scrollToIndex} />
-      
       <main>
         <Hero profile={profile} setProfile={setProfile} />
-        
-        <div id="portfolio">
-          <PortfolioSection achievements={achievements} />
-        </div>
-
-        <div id="teams">
-          <TeamsSection />
-        </div>
-
-        <div id="story">
-          <AcademyBook pages={storyPages} />
-        </div>
-
-        <div id="charity">
-          <CharitySection />
-        </div>
-        
-        <div id="sports">
-          <SportsSection tournaments={tournaments} />
-        </div>
-
-        <div id="academy">
-          <AcademySection />
-        </div>
-
-        <div id="shop">
-          <ShopSection kits={kits} />
-        </div>
-
-        <div id="games">
-          <GamesSection />
-        </div>
-        
-        <div id="feedback">
-          <FeedbackSection feedbacks={feedbacks} setFeedbacks={setFeedbacks} />
-        </div>
+        <div id="portfolio"><PortfolioSection achievements={achievements} /></div>
+        <div id="teams"><TeamsSection /></div>
+        <div id="story"><AcademyBook pages={storyPages} /></div>
+        <div id="charity"><CharitySection /></div>
+        <div id="sports"><SportsSection tournaments={tournaments} /></div>
+        <div id="academy"><AcademySection /></div>
+        <div id="shop"><ShopSection kits={kits} /></div>
+        <div id="games"><GamesSection /></div>
+        <div id="feedback"><FeedbackSection feedbacks={feedbacks} setFeedbacks={setFeedbacks} /></div>
       </main>
 
       {isAdminOpen && (
         <AdminDashboard 
-          profile={profile} 
-          setProfile={setProfile}
-          achievements={achievements}
-          setAchievements={setAchievements}
-          feedbacks={feedbacks}
-          setFeedbacks={setFeedbacks}
-          tournaments={tournaments}
-          setTournaments={setTournaments}
-          kits={kits}
-          setKits={setKits}
-          storyPages={storyPages}
-          setStoryPages={setStoryPages}
+          profile={profile} setProfile={setProfile}
+          achievements={achievements} setAchievements={setAchievements}
+          feedbacks={feedbacks} setFeedbacks={setFeedbacks}
+          tournaments={tournaments} setTournaments={setTournaments}
+          kits={kits} setKits={setKits}
+          storyPages={storyPages} setStoryPages={setStoryPages}
           onClose={() => setIsAdminOpen(false)}
         />
       )}
 
       <footer className="text-center py-12 text-emerald-800/60 text-sm border-t border-emerald-100 bg-white/80 backdrop-blur-md">
-        <p className="font-bold">تم التصميم بكل حب لطلاب المستقبل ⚽📚</p>
+        <p className="font-bold">ملف الإنجاز الرياضي الشخصي ⚽</p>
         <p className="mt-2 opacity-70 text-xs">© {new Date().getFullYear()} ملف إنجاز الطالب - رواد عرب</p>
       </footer>
     </div>
