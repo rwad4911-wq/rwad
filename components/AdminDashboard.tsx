@@ -32,18 +32,10 @@ interface AdminDashboardProps {
   storyPages: Page[];
   setStoryPages: (p: Page[]) => void;
   onClose: () => void;
-  onSync: () => void; // وظيفة المزامنة الجديدة
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
   const [activeTab, setActiveTab] = useState('profile');
-  const [isSyncing, setIsSyncing] = useState(false);
-
-  const handleCloudSync = async () => {
-    setIsSyncing(true);
-    await props.onSync();
-    setIsSyncing(false);
-  };
 
   const handleDelete = (list: any[], setList: Function, idKey: string, idValue: any) => {
     if (window.confirm('هل أنت متأكد من الحذف؟')) {
@@ -90,7 +82,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
                   className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs"
                 >+ إضافة</button>
              </div>
-             <div className="max-h-[400px] overflow-y-auto space-y-2 no-scrollbar">
+             <div className="max-h-[400px] overflow-y-auto space-y-2">
                {props.achievements.map((ach) => (
                  <div key={ach.id} className="bg-slate-50 p-3 rounded-xl border flex justify-between items-center">
                    <div className="flex-1">
@@ -117,10 +109,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
                 <div key={kit.id} className="bg-slate-50 p-4 rounded-xl border grid grid-cols-3 gap-2 items-center">
                   <input className="font-bold bg-transparent" value={kit.name} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, name: e.target.value} : k))} />
                   <input type="number" className="bg-white border rounded p-1 text-center" value={kit.price} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, price: parseInt(e.target.value)} : k))} />
-                  <div className="flex gap-2 justify-end">
+                  <div className="flex gap-2">
                     <input type="color" value={kit.primaryColor} onChange={e => props.setKits(props.kits.map(k => k.id === kit.id ? {...k, primaryColor: e.target.value} : k))} className="w-8 h-8 rounded cursor-pointer" />
                     <button onClick={() => handleDelete(props.kits, props.setKits, 'id', kit.id)} className="text-red-500"><i className="fas fa-trash"></i></button>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'feedback':
+        return (
+          <div className="space-y-4 animate-fade-in">
+            <h4 className="font-bold text-slate-800">إدارة تقييمات المعلمين</h4>
+            <div className="space-y-2">
+              {props.feedbacks.map((f, i) => (
+                <div key={i} className="bg-slate-50 p-3 rounded-xl border flex justify-between items-center">
+                  <div>
+                    <p className="font-bold">{f.teacherName}</p>
+                    <p className="text-xs text-slate-500 truncate max-w-xs">{f.comment}</p>
+                  </div>
+                  <button onClick={() => handleDelete(props.feedbacks, props.setFeedbacks, 'teacherName', f.teacherName)} className="text-red-500"><i className="fas fa-trash"></i></button>
                 </div>
               ))}
             </div>
@@ -148,6 +157,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
             { id: 'profile', icon: 'fa-user', label: 'الملف الشخصي' },
             { id: 'achievements', icon: 'fa-trophy', label: 'الإنجازات' },
             { id: 'shop', icon: 'fa-shirt', label: 'المتجر' },
+            { id: 'feedback', icon: 'fa-comment', label: 'التقييمات' },
           ].map(tab => (
             <button 
               key={tab.id}
@@ -159,20 +169,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = (props) => {
             </button>
           ))}
 
-          <div className="mt-auto space-y-3">
-            <button 
-              onClick={handleCloudSync}
-              disabled={isSyncing}
-              className="w-full bg-blue-600 text-white p-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg"
-            >
-              <i className={`fas ${isSyncing ? 'fa-spinner fa-spin' : 'fa-cloud-upload-alt'}`}></i>
-              {isSyncing ? 'جاري الحفظ...' : 'مزامنة مع السحاب'}
-            </button>
+          <div className="mt-auto pt-8">
             <button 
               onClick={props.onClose}
               className="w-full bg-red-500/10 text-red-400 p-3 rounded-xl font-bold text-sm hover:bg-red-500 hover:text-white transition-all"
             >
-              إغلاق
+              إغلاق وحفظ
             </button>
           </div>
         </div>
