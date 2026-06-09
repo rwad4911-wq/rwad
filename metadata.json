@@ -1,5 +1,6 @@
 {
   "name": "ملف إنجاز الطالب الرياضي",
   "description": "موقع احترافي لعرض إنجازات الطلاب، مخصص لمحبي الرياضة مع ميزات تقييم المعلمين ودعم الذكاء الاصطناعي.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": []
 }

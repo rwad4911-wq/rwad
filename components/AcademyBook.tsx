@@ -20,7 +20,7 @@ const AcademyBook: React.FC<AcademyBookProps> = ({ pages }) => {
       <div className="flex items-center gap-4 mb-12">
         <div className="h-10 w-2 bg-emerald-600 rounded-full shadow-lg"></div>
         <div>
-          <h2 className="text-3xl font-black text-slate-800">كتاب الأكاديمية الذهبي 📖</h2>
+          <h2 className="text-3xl font-black text-slate-800">كتاب نادي رواد الذهبي 📖</h2>
           <p className="text-slate-500 mt-1 font-medium">رحلة من الشغف والنجاح</p>
         </div>
       </div>
